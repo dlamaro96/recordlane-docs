@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@1e60f620b9541dca151540d0c40b52c1b87e887e # v4.0.3
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with: {node-version: '20.19.6'}
       - run: npm test && npm run build
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
@@ -17,4 +17,4 @@ jobs:
         with: {path: dist}
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@4db9dc9de0b16dd5b155bc3c7f5908a12d0842c2 # v4.0.5
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
