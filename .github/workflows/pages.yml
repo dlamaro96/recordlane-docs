@@ -1,0 +1,20 @@
+name: pages
+on:
+  push: {branches: [main]}
+permissions: {contents: read, pages: write, id-token: write}
+concurrency: {group: pages, cancel-in-progress: true}
+jobs:
+  deploy:
+    environment: {name: github-pages, url: '${{ steps.deployment.outputs.page_url }}'}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@1e60f620b9541dca151540d0c40b52c1b87e887e # v4.0.3
+        with: {node-version: '20.19.6'}
+      - run: npm test && npm run build
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        with: {path: dist}
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@4db9dc9de0b16dd5b155bc3c7f5908a12d0842c2 # v4.0.5
